@@ -21,9 +21,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //anvend routes
 app.use('/api/cars', carRoutes);
-app.use('/api/orgs/', orgRoutes);
-app.use('/api/user/', userRoutes);
-app.use('/api/auth/', authRouters);
 
 //404 route
 app.use((req,res) =>{
