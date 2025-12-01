@@ -13,13 +13,29 @@ datasource db {
   provider = "mysql"
   url = env("DATABASE_URL")
 }
+//car model 
+model Car {
+  id Int @id @default(autoincrement())
+  category String
+ brandId Int
+  model String
+  year Int
+  price Decimal @db.Decimal(10, 2)
+  fueltype String
 
-model User {
+  Brand Brand @relation(fields: [brandId], references: [id])
+
+  @@map("cars")
+}
+
+//brand model
+model Brand {
   id Int @id @default(autoincrement())
   name String
-  email String @unique
-  password String
+  logoUrl String
 
-@@map("users")
+  cars Car[]
+
+  @@map("brands")
 
 }
