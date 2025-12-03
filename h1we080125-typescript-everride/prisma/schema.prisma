@@ -12,25 +12,59 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+enum Role {
+  USER
+  ADMIN
+}
+//user model
+model User {
+  id       Int     @id @default(autoincrement())
+  firstname String  
+  lastname String  
+  email String @unique
+  password String
+  role Role
+  isActive Boolean
 
+  @@map("users")
+}
 //car model 
 model Car {
   id       Int     @id @default(autoincrement())
   category String
-  brand     String
+  brandId     String
   model    String
   year     Int
   price    Decimal @db.Decimal(10, 2)
   fueltype String
 
+brand Brand @relation(fields: [brandId], references: [id])
+
   @@map("cars")
 }
 
 //brand model
+
 model Brand {
   id      Int    @id @default(autoincrement())
   name    String
   logoUrl String
 
-  @@map("brands")
+  cars    Car[]
+  
+  @@map("brand")
+
 }
+
+//category model
+
+model Category {
+  id      Int    @id @default(autoincrement())
+  name    String
+  
+  @@map("category")
+
+}
+
+
+
