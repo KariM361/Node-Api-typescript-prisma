@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { prisma } from '../prisma.js';
-
+import bcrypt from 'bcrypt';
 /**
  * Method Get Records
  * @param req 
@@ -58,17 +58,19 @@ export const createRecord = async (req: Request, res: Response) => {
   }
   
   try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     const data = await prisma.user.create({
       data: {
         firstname,
         lastname,
         email,
-        password,
+        password: hashedPassword,
         role,
         isActive: Boolean(isActive)
       }
     })
-    return res.status(201).json(data)
+    return res.status(201).json(data) 
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Something went wrong' }) 

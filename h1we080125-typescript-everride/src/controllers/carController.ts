@@ -12,6 +12,7 @@ export const getRecords = async (req: Request, res: Response) => {
     const data = await prisma.car.findMany({
       include: {
         brand: true
+      }
     });
     return res.status(200).json(data);
   } catch (error) {

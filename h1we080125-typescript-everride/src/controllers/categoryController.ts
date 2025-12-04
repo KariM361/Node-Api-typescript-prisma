@@ -10,7 +10,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
       where: { id }
     })
 
-    res.status(deleted).json({
+    res.status(404).json({
       message: 'Category deleted',
       deletedId: id
     })
