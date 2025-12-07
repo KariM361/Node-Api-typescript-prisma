@@ -1,6 +1,7 @@
 import{ Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+
 const JWT_SECRET = process.env.JWT_SECRET || 'secret-key';
 
 // Udvider Request-typen så vi kan gemme "user" på req-objektet
